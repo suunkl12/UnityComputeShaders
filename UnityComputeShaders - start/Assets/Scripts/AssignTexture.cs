@@ -9,7 +9,7 @@ public class AssignTexture : MonoBehaviour
 
     Renderer rend;
     RenderTexture outputTexture;
-
+    string kernelName = "SolidColor";
     int kernelHandle;
 
     // Start is called before the first frame update
@@ -27,8 +27,11 @@ public class AssignTexture : MonoBehaviour
 
     void InitShader()
     {
-        kernelHandle = shader.FindKernel("CSMain");
+        kernelHandle = shader.FindKernel(kernelName);
+
+        shader.SetInt("texResolution", texResolution);
         shader.SetTexture(kernelHandle, "Result", outputTexture);
+
         rend.material.SetTexture("_MainTex", outputTexture);
 
         DispatchShader(texResolution / 16, texResolution / 16);

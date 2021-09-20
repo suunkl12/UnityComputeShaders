@@ -245,10 +245,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 771508769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cb28066ce59d7442b8a2d9ca792f71c, type: 3}
+  m_Script: {fileID: 11500000, guid: dd4db9daf1acb4d93ad2ebb826de9b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: 7200000, guid: be1b66482520b1d40bf6db48d3bdcf39, type: 3}
+  shader: {fileID: 7200000, guid: f1790339bf90e41c3b4ac6fff23317d5, type: 3}
   texResolution: 256
 --- !u!64 &771508771
 MeshCollider:
