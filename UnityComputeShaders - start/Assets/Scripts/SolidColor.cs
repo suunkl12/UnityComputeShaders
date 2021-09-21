@@ -9,7 +9,7 @@ public class SolidColor : MonoBehaviour
 
     Renderer rend;
     RenderTexture outputTexture;
-    string kernelName = "SplitScreen";
+    string kernelName = "Circle";
     int kernelHandle;
 
     // Start is called before the first frame update

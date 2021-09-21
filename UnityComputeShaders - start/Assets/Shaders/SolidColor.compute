@@ -2,6 +2,7 @@
 #pragma kernel SolidRed
 #pragma kernel SolidYellow
 #pragma kernel SplitScreen
+#pragma kernel Circle
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
@@ -11,14 +12,14 @@ uint texResolution;
 [numthreads(8,8,1)]
 void SolidRed (uint3 id : SV_DispatchThreadID)
 {
-    // TODO: insert actual code here!
+    // screen color red
     Result[id.xy] = float4(1.0 , 0.0, 0.0, 0.0);
 }
 
 [numthreads(8,8,1)]
 void SolidYellow (uint3 id : SV_DispatchThreadID)
 {
-    // TODO: insert actual code here!
+    // will draw yellow
     Result[id.xy] = float4(1.0, 1.0, 0.0, 0.0);
 }
 
@@ -26,11 +27,29 @@ void SolidYellow (uint3 id : SV_DispatchThreadID)
 void SplitScreen (uint3 id : SV_DispatchThreadID)
 {
     
-    // TODO: insert actual code here!
-    uint halfRes = texResolution >> 1;
-
-    uint a = id.x/(halfRes);
-    uint b = id.y/(halfRes);
-    Result[id.xy] = float4(a*b + a,a*b + b,0.0,0.0);
+    // split screen into 4 colors
+    int halfRes = texResolution >> 1;
+    Result[id.xy] = float4( step(halfRes,id.x), step(halfRes,id.y),0.0,0.0);
     
 }
+
+int inCircle(float length, float radius){
+    return length < radius;
+}
+
+[numthreads(8,8,1)]
+void Circle (uint3 id : SV_DispatchThreadID)
+{
+    // if use uint, it will only draw a quarter of the circle, because all of these are singed, don't mix unsigned and signed
+    int halfRes = texResolution >> 1;
+    float2 center = float2(halfRes,halfRes);
+
+    //the vector canbe substract with scalar because the x and y are the same
+    float _length = length((float2)((int2)id.xy-halfRes));
+    float radius = texResolution>>2;
+
+    int res = inCircle(_length,radius);
+    Result[id.xy] = float4( res,res,0.0,0.0);
+    
+}
+
