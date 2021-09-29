@@ -13,12 +13,17 @@ float noiseScale;
 float ringScale;
 float contrast;
 
+#include "noiseSimplex.cginc"
 [numthreads(8,8,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
     float3 pos = (((float3)id)/(float)texResolution) * 2.0;
+    float n = snoise(pos);
+    float ring = frac(noiseScale * n);
     
-    float delta = 0.5;
+
+    ring *= contrast * (1 - ring);
+    float delta = pow ( ring, ringScale) + n;
 
     Result[id.xy] = lerp(darkColor, paleColor, delta);
 }

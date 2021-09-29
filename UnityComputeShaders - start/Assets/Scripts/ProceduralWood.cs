@@ -54,12 +54,19 @@ public class ProceduralWood : MonoBehaviour
 
     private void DispatchShader(int x, int y)
     {
+        shader.SetVector("paleColor", paleColor);
+        shader.SetVector("darkColor", darkColor);
+        shader.SetFloat("frequency", frequency);
+        shader.SetFloat("noiseScale", noiseScale);
+        shader.SetFloat("ringScale", ringScale);
+        shader.SetFloat("contrast", contrast);
         shader.Dispatch(kernelHandle, x, y, 1);
     }
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.U))
+        
+        if (true)//(Input.GetKeyUp(KeyCode.U))
         {
             DispatchShader(texResolution / 8, texResolution / 8);
         }

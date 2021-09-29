@@ -3,6 +3,11 @@
 
 float delta;
 
+struct Vertex{
+	float3 position;
+	float3 normal;
+};
+
 [numthreads(1,1,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
