@@ -35,10 +35,10 @@ public class Challenge1 : MonoBehaviour
         float width = texResolution / 3;
         float height = texResolution / 4;
         float halfRes = texResolution >> 1;
-        shader.SetVector("rect", new Vector4(halfRes - width/2, halfRes - height/2  , width , height));
+        shader.SetVector("rect", new Vector4(halfRes - width / 2, halfRes - height / 2, width, height));
 
         shader.SetTexture(kernelHandle, "Result", outputTexture);
-       
+
         rend.material.SetTexture("_MainTex", outputTexture);
 
         DispatchShader(texResolution / 8, texResolution / 8);
